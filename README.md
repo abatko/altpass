@@ -106,6 +106,7 @@ Options
 -------
 
     Usage: altpass.rb [options]
+        -c                               Create default configuration file /Users/abatko/.altpass.yaml
         -l, --length [INTEGER>0]         Password length
         -m, --memorizable [true|false]   Use the memorizable pattern or not
         -p, --permutations [vvv]         Show permutation size; verbosity increases with v's
@@ -165,6 +166,71 @@ These examples assume the above mentioned *Configuration* section is in effect.
     10 * 15 * 9 * 4 * 10 * 14 * 3 * 14 permutations
     31,752,000 permutations
     --length 8 --memorizable true
+
+### Create a configuration file
+
+Use the convenience of the `-c` switch to create a default configuration file:
+
+    $ altpass.rb -c
+    Created configuration file /Users/abatko/.altpass.yaml
+
+    $ altpass.rb 
+    yZH3jw9r
+
+Note that once a configuration file exists, the `-c` option changes to *show* its content:
+
+    $ altpass.rb -h
+    Usage: altpass.rb [options]
+        -c                               Show default configuration file /Users/abatko/.altpass.yaml
+        ...                              ...
+        ...                              ...
+        ...                              ...
+
+    $ altpass.rb -c
+    Your altpass configuration file is /Users/abatko/.altpass.yaml
+    :length: 8
+    :memorizable: true
+    :permutations: false
+    :switches: false
+
+Let's remove the configuration file, and create another one with custom settings:
+
+    $ rm ~/.altpass.yaml
+    remove /Users/abatko/.altpass.yaml? y
+
+    $ altpass.rb -c -l20 -mf
+    Created configuration file /Users/abatko/.altpass.yaml
+
+    $ altpass.rb -c 
+    Your altpass configuration file is /Users/abatko/.altpass.yaml
+    :length: 20
+    :memorizable: false
+    :permutations: false
+    :switches: false
+
+    $ altpass.rb 
+    mgYzNWjdy2JEMZ9emDy5
+
+### Recommended configuration and usage
+
+If you create accounts frequently, and like to have unique passwords that are
+as long as the service you are signing up for allows, then consider this
+default: length 20, non-memoriable.
+
+Create your confiration file as follows:
+
+    $ altpass.rb -c -l20 -mf
+
+and simply override it at the command-line on a per-need basis (for instance,
+when the service has a shorter maximum):
+
+    $ altpass.rb -l16
+
+Note that some services don't specify a maximum, yet they actually have one. In
+such cases, you may create your account with a password that will ultimately not
+let you log in, and you will have to use their "forgot/reset password" feature
+(consider also contacting that service and asking them to post the password
+length limit on their sign-up page).
 
 Contributing
 ============

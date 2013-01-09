@@ -20,6 +20,10 @@ options = options.merge(yaml_defaults) unless yaml_defaults.nil?
 OptionParser.new do |opts|
 	opts.banner = 'Usage: altpass.rb [options]'
 
+	opts.on('-c', "#{File.exist?(CONFIGURATION_FILE) ? 'Show' : 'Create'} default configuration file #{CONFIGURATION_FILE}") do |l|
+		options[:createconfig] = true
+	end
+
 	opts.on('-l', '--length [INTEGER>0]', OptionParser::DecimalInteger, 'Password length') do |l|
 		unless l > 0
 			puts 'argument to -l must be > 0'
@@ -61,6 +65,32 @@ def show_permutations(options)
 	permutations = Altpass.permutations(options)
 	# print the number of permutations after adding commas to it
 	puts permutations.to_s.reverse.scan(/(?:\d*\.)?\d{1,3}-?/).join(',').reverse + ' permutations'
+end
+
+if options[:createconfig]
+	if File.exist?(CONFIGURATION_FILE)
+			puts "Your altpass configuration file is #{CONFIGURATION_FILE}"
+			if File.readable?(CONFIGURATION_FILE)
+				puts File.read(CONFIGURATION_FILE)
+			else
+				puts 'But it is NOT readable!'
+			end
+	else
+		File.open(CONFIGURATION_FILE, 'w') { |f|
+			f.write(
+				":length: #{options[:length]}\n" +
+				":memorizable: #{options[:memorizable]}\n" +
+				":permutations: #{options[:permutations]}\n" +
+				":switches: #{options[:switches]}\n"
+			)
+		}
+		if File.exist?(CONFIGURATION_FILE)
+			puts "Created configuration file #{CONFIGURATION_FILE}"
+		else
+			puts 'Something went wrong; configuration file NOT created!'
+		end
+	end
+	exit
 end
 
 puts Altpass.generate(:length => options[:length], :memorizable => options[:memorizable])
