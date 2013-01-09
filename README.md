@@ -217,7 +217,7 @@ If you create accounts frequently, and like to have unique passwords that are
 as long as the service you are signing up for allows, then consider this
 default: length 20, non-memoriable.
 
-Create your confiration file as follows:
+Create your configuration file as follows:
 
     $ altpass.rb -c -l20 -mf
 
