@@ -62,7 +62,7 @@ private
 		raise ArgumentError, "expected a Hash, but got: #{options.inspect}" unless options.kind_of?(Hash)
 		options = DEFAULT_OPTIONS.merge(options)
 		raise ArgumentError, "expected :memorizable to be boolean, but got: #{options[:memorizable].inspect}" unless options[:memorizable].kind_of?(TrueClass) || options[:memorizable].kind_of?(FalseClass)
-		raise ArgumentError, "expected :length to be a Fixnum, but got: #{options[:length].inspect}" unless options[:length].kind_of?(Fixnum)
+		raise ArgumentError, "expected :length to be an Integer, but got: #{options[:length].inspect}" unless options[:length].kind_of?(Integer)
 		raise ArgumentError, "expected :length > 0, but got: #{options[:length]}" unless options[:length] > 0
 		options
 	end

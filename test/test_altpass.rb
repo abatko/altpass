@@ -27,7 +27,7 @@ class AltpassTest < Test::Unit::TestCase
 	def test__generate__raise_exception_for_bad_length_hash_value_type
 		non_fixnum = {:length => 'A'}
 		exception = assert_raise(ArgumentError) { Altpass.generate(non_fixnum) }
-		assert_equal "expected :length to be a Fixnum, but got: #{non_fixnum[:length].inspect}", exception.message
+		assert_equal "expected :length to be an Integer, but got: #{non_fixnum[:length].inspect}", exception.message
 	end
 
 	def test_raise_exception_for_fixnum_argument_less_than_one_to_generate_to_length

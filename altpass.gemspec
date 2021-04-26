@@ -6,11 +6,11 @@ Gem::Specification.new do |gem|
 	gem.name          = 'altpass'
 	gem.version       = Altpass::VERSION
 
-	gem.authors       = ['Alex Batko']
-	gem.email         = ['alexbatko@gmail.com']
+	gem.authors       = ['Aba Tkosan']
+	gem.email         = ['aba.tkosan@gmail.com']
 
 	gem.summary       = %q{Generate passwords derived from hand-alternating, visually unambiguous, alphanumeric characters}
-	gem.description   = "#{gem.summary}. This is a Ruby gem and command-line utility. Formerly known as 'alexpass'."
+	gem.description   = "#{gem.summary}. This is a Ruby gem and command-line utility."
 
 	gem.homepage      = 'https://github.com/abatko/altpass'
 
